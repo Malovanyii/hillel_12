@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    .container {
-      padding: 20px;
-      margin: 0 auto;
-      border: 1px solid #000000;
-      width: 400px;
-      text-align: center;
-    }
-    button {
-      margin: 5px;
-      padding: 10px 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container" id="buttonContainer">
-    <button>Кнопка 1</button>
-    <button>Кнопка 2</button>
-    <button>Кнопка 3</button>
-  </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>To-Do List</title>
+	</head>
+	<body>
+		<input type="text" id="newTask" placeholder="Додати нове завдання" />
+		<button id="addTask">Додати</button>
+		<ul id="taskList"></ul>
 
-  <script>
-    const container = document.getElementById('buttonContainer');
+		<script>
+			const taskList = document.getElementById("taskList");
+			const newTaskInput = document.getElementById("newTask");
+			const addTaskButton = document.getElementById("addTask");
 
-    container.addEventListener('click', (event) => {
-      if (event.target.tagName === 'BUTTON') {
-        const buttonText = event.target.textContent;
+			addTaskButton.addEventListener("click", () => {
+				const newTaskText = newTaskInput.value;
+				if (newTaskText.trim() !== "") {
+					const li = document.createElement("li");
+					li.textContent = newTaskText;
 
-        alert(`Клікнуто на кнопці: ${buttonText}`);
-      }
-    });
-  </script>
-</body>
+					const deleteButton = document.createElement("button");
+					deleteButton.textContent = "Видалити";
+					li.appendChild(deleteButton);
+
+					taskList.appendChild(li);
+					newTaskInput.value = "";
+				}
+			});
+
+			taskList.addEventListener("click", (event) => {
+				if (event.target.tagName === "BUTTON") {
+					event.target.parentNode.remove();
+				}
+			});
+		</script>
+	</body>
 </html>
